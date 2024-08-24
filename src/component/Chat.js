@@ -151,7 +151,7 @@ export default function Chat() {
           className={styles.firstBalloon}
           style={{ animationDelay: `${(index + 1) * 0.2}s` }}
         >
-          <div>
+          <div className={styles.table}>
             <div>
               {item.departTime.slice(0, 2)}시 {item.departTime.slice(2, 4)}분
               출발

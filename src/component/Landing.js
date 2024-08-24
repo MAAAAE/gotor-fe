@@ -77,6 +77,9 @@ export default function Landing() {
     <div className={styles.baseContainer}>
       <div className={styles.container}>
         <div className={styles.title}>노른자 버스 매표소</div>
+        <div className={styles.title}>
+          마이크 사용을 <br /> 허가해주세요.
+        </div>
       </div>
       <div
         className={`${styles.enter} ${
@@ -85,7 +88,9 @@ export default function Landing() {
         onClick={handleClick}
       >
         {focus ? (
-          <div className={styles.noFocus}>노른자 버스 찾는 중</div>
+          <div className={styles.noFocus}>
+            <div>노른자 버스 찾는 중</div>
+          </div>
         ) : (
           <div>
             {isRecording ? (
