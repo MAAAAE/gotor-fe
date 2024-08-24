@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from "react";
 export default function Chat() {
   const [searchResult, setSearchResult] = useState([]);
   const [chatBubble, setChatBubble] = useState([]);
+  const [ticket, setTicket] = useState();
+  const [change, setChange] = useState(false);
   const containerRef = useRef(null);
 
   const location = useLocation();
@@ -42,13 +44,8 @@ export default function Chat() {
 
     setTimeout(async () => {
       setChatBubble((prev) => [...prev, { user: false, isLoading: true }]);
-
       const imgurl = await purchase(index, item);
-      if (imgurl) {
-        setTimeout(() => {
-          navigate("/ticket", { state: { url: imgurl } });
-        }, 1000);
-      }
+      setTicket(imgurl);
     }, 800);
   };
 
@@ -78,6 +75,22 @@ export default function Chat() {
     } catch (error) {
       console.error("Error sending id:", error);
     }
+  };
+
+  const getTicket = () => {
+    setChatBubble((prev) => [
+      ...prev,
+      {
+        user: false,
+        content: "결제가 완료되었습니다.",
+      },
+    ]);
+    setTimeout(() => {
+      setChange(true);
+    }, 500);
+    setTimeout(() => {
+      navigate("/ticket", { state: { url: ticket } });
+    }, 1000);
   };
 
   function formatPrice(price) {
@@ -125,7 +138,10 @@ export default function Chat() {
   }
 
   return (
-    <div className={styles.container} ref={containerRef}>
+    <div
+      className={`${styles.container} ${change ? styles.moveUp : ""}`}
+      ref={containerRef}
+    >
       <div className={styles.firstBalloon}>
         <div>{searchResult.length}개의 버스가 있습니다.</div>
       </div>
@@ -136,14 +152,16 @@ export default function Chat() {
           style={{ animationDelay: `${(index + 1) * 0.2}s` }}
         >
           <div>
-            {item.departTime.slice(0, 2)}시 {item.departTime.slice(2, 4)}분 출발
+            <div>
+              {item.departTime.slice(0, 2)}시 {item.departTime.slice(2, 4)}분
+              출발
+            </div>
+            <div>
+              {item.arrivalTime.slice(0, 2)}시 {item.arrivalTime.slice(2, 4)}분
+              도착
+            </div>
+            <div>{formatPrice(item.price)}</div>
           </div>
-          <div>
-            {item.arrivalTime.slice(0, 2)}시 {item.arrivalTime.slice(2, 4)}분
-            도착
-          </div>
-          <div>{formatPrice(item.price)}</div>
-
           <button
             className={`${styles.btn} ${chatBubble[0] ? styles.disappear : ""}`}
             onClick={() => {
@@ -157,10 +175,19 @@ export default function Chat() {
       {chatBubble.map((item, index) => (
         <div
           key={index}
-          className={item.user ? styles.secondBalloon : styles.firstBalloon}
+          className={`${
+            item.user ? styles.secondBalloon : styles.firstBalloon
+          } ${item.isLoading ? styles.jCenter : ""}`}
         >
           {item.isLoading ? (
-            <div className={styles.loader}></div>
+            <div
+              onClick={() => {
+                getTicket();
+              }}
+            >
+              <div className={styles.loader}></div>
+              <span className={styles.loaderText}>Loading...</span>
+            </div>
           ) : (
             item.content
           )}
