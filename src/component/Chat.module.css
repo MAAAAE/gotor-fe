@@ -1,0 +1,124 @@
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: scroll;
+  gap: 20px;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+.firstBalloon {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 300px;
+  color: #333;
+  font-size: 24px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: popUp 0.5s ease-in-out forwards;
+}
+
+.secondBalloon {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 300px;
+  color: #333;
+  font-size: 24px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: popUp 0.5s ease-in-out forwards;
+}
+
+@keyframes popUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.firstBalloon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-right-color: #eee;
+  border-left: 0;
+  border-top: 0;
+  margin-top: -10px;
+  margin-left: -20px;
+}
+
+.secondBalloon::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-left-color: #eee;
+  border-right: 0;
+  border-top: 0;
+  margin-top: -10px;
+  margin-right: -20px;
+}
+
+.btn {
+  align-self: self-end;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 26px;
+  line-height: 1.5;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:hover {
+  color: #fff;
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.btn.disappear {
+  opacity: 1;
+  animation: disappear 0.5s ease-in-out forwards;
+}
+
+@keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    pointer-events: none; /* 클릭 불가능 */
+  }
+}

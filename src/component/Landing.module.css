@@ -2,6 +2,10 @@
   display: flex;
 }
 
+.title {
+  font-size: 2.5rem;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -25,7 +29,7 @@
 }
 
 .enter.centered {
-  animation: moveToCenter 0.5s ease-in-out forwards; /* Apply the animation */
+  animation: moveToCenter 0.5s ease-in-out forwards;
 }
 
 .notification {
