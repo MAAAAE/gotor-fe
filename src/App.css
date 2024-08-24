@@ -1,0 +1,14 @@
+.App {
+  text-align: center;
+}
+
+.title {
+  font-size: 32px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Prevent scrolling */
+}

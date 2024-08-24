@@ -1,0 +1,60 @@
+.baseContainser {
+  display: flex;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 60vh;
+}
+.enter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-color: rgb(255, 200, 0);
+  z-index: 5;
+}
+
+.enter.centered {
+  animation: moveToCenter 0.5s ease-in-out forwards; /* Apply the animation */
+}
+
+.notification {
+  margin-top: 20%;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  visibility: hidden;
+}
+
+.notification.show {
+  opacity: 1;
+  visibility: visible;
+  z-index: -1;
+}
+
+@keyframes moveToCenter {
+  0% {
+    top: 90%;
+    width: 300px;
+    height: 300px;
+    background-color: rgb(255, 200, 0);
+  }
+  100% {
+    top: 50%;
+    width: 300px;
+    height: 300px;
+    background-color: rgb(255, 200, 0);
+    transform: translate(-50%, -50%);
+  }
+}
