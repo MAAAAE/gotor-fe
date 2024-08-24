@@ -80,6 +80,50 @@ export default function Chat() {
     }
   };
 
+  function formatPrice(price) {
+    let formattedPrice = "";
+    let remainder = price;
+
+    // 만 단위 처리
+    if (remainder >= 10000) {
+      const tenThousands = Math.floor(remainder / 10000);
+      formattedPrice += tenThousands + "만 ";
+      remainder %= 10000;
+    }
+
+    // 천 단위 처리
+    if (remainder >= 1000) {
+      const thousands = Math.floor(remainder / 1000);
+      if (thousands > 1) {
+        formattedPrice += thousands + "천 ";
+      } else if (thousands === 1) {
+        formattedPrice += "천 ";
+      }
+      remainder %= 1000;
+    }
+
+    // 백 단위 처리
+    if (remainder >= 100) {
+      const hundreds = Math.floor(remainder / 100);
+      if (hundreds > 1) {
+        formattedPrice += hundreds + "백 ";
+      } else if (hundreds === 1) {
+        formattedPrice += "백 ";
+      }
+      remainder %= 100;
+    }
+
+    // 10원 미만 처리
+    if (remainder > 0) {
+      formattedPrice += remainder;
+    }
+
+    // 마지막에 '원' 추가
+    formattedPrice += "원";
+
+    return formattedPrice;
+  }
+
   return (
     <div className={styles.container} ref={containerRef}>
       <div className={styles.firstBalloon}>
@@ -92,9 +136,13 @@ export default function Chat() {
           style={{ animationDelay: `${(index + 1) * 0.2}s` }}
         >
           <div>
-            출발 : {item.departTime} ~ 도착 : {item.arrivalTime}
+            {item.departTime.slice(0, 2)}시 {item.departTime.slice(2, 4)}분 출발
           </div>
-          <div>{item.price}원</div>
+          <div>
+            {item.arrivalTime.slice(0, 2)}시 {item.arrivalTime.slice(2, 4)}분
+            도착
+          </div>
+          <div>{formatPrice(item.price)}</div>
 
           <button
             className={`${styles.btn} ${chatBubble[0] ? styles.disappear : ""}`}

@@ -6,14 +6,24 @@ export default function Landing() {
   const navigate = useNavigate();
   const [isCenter, setIsCenter] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
+  const [focus, setFocus] = useState(false);
+  const [initLoad, setInitLoad] = useState(true);
+
   const mediaRecorderRef = useRef(null);
   const chunks = useRef([]);
 
+  const stopRecording = () => {
+    chunks.current = []; // 청크 리셋
+    setIsRecording(false);
+  };
+
   const handleClick = async () => {
+    setInitLoad(false);
     if (isRecording) {
       // 녹음 중이면 녹음 중지
-      mediaRecorderRef.current.stop();
-      setIsRecording(false);
+      await mediaRecorderRef.current.stop();
+      setFocus(true);
+      stopRecording();
     } else {
       // 녹음 중이 아니면 녹음 시작
       setIsRecording(true);
@@ -44,7 +54,9 @@ export default function Landing() {
 
           const result = await response.json();
           chunks.current = []; // 다음 기록을 위한 청크 리셋
-          navigate("/chat", { state: { result: result } });
+          setTimeout(() => {
+            navigate("/chat", { state: { result: result } });
+          }, 800);
         } catch (error) {
           console.error("Error uploading audio:", error);
         }
@@ -54,25 +66,59 @@ export default function Landing() {
     }
   };
 
+  const cancleRec = () => {
+    if (isRecording) {
+      stopRecording();
+      setIsCenter(false);
+    }
+  };
+
   return (
     <div className={styles.baseContainer}>
       <div className={styles.container}>
         <div className={styles.title}>버스 매표소</div>
       </div>
       <div
-        className={`${styles.enter} ${isCenter ? styles.centered : ""}`}
+        className={`${styles.enter} ${
+          initLoad ? "" : isCenter ? styles.centered : styles.down
+        } ${focus ? styles.focus : ""}`}
         onClick={handleClick}
       >
-        <div className={styles.title}>
-          {isCenter ? "녹음 중입니다" : "버스 찾기"}
-        </div>
+        {focus ? (
+          <div></div>
+        ) : (
+          <div>
+            {isRecording ? (
+              <div className={`${styles.notification} ${styles.show}`}>
+                출발지, 목적지, 날짜, 갯수
+              </div>
+            ) : (
+              <div className={styles.notification}></div>
+            )}
+            <div className={styles.title}>
+              {isCenter ? "다 말하면 누르기" : "버스 찾기"}
+            </div>
+          </div>
+        )}
       </div>
       {isRecording ? (
-        <div className={`${styles.notification} ${styles.show}`}>
-          출발지, 목적지, 날짜, 좌석을 말씀해주세요
+        <div
+          className={`${styles.notification} ${styles.show} ${styles.background}`}
+        >
+          <div>다시 말하기</div>
         </div>
       ) : (
         <div className={styles.notification}></div>
+      )}
+      {isRecording ? (
+        <div
+          className={styles.blankArea}
+          onClick={() => {
+            cancleRec();
+          }}
+        ></div>
+      ) : (
+        <span></span>
       )}
     </div>
   );
