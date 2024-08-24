@@ -21,8 +21,8 @@ export default function Landing() {
     setInitLoad(false);
     if (isRecording) {
       // 녹음 중이면 녹음 중지
-      await mediaRecorderRef.current.stop();
       setFocus(true);
+      await mediaRecorderRef.current.stop();
       stopRecording();
     } else {
       // 녹음 중이 아니면 녹음 시작
@@ -56,7 +56,7 @@ export default function Landing() {
           chunks.current = []; // 다음 기록을 위한 청크 리셋
           setTimeout(() => {
             navigate("/chat", { state: { result: result } });
-          }, 800);
+          }, 750);
         } catch (error) {
           console.error("Error uploading audio:", error);
         }
@@ -76,7 +76,7 @@ export default function Landing() {
   return (
     <div className={styles.baseContainer}>
       <div className={styles.container}>
-        <div className={styles.title}>버스 매표소</div>
+        <div className={styles.title}>노른자 버스 매표소</div>
       </div>
       <div
         className={`${styles.enter} ${
@@ -85,7 +85,7 @@ export default function Landing() {
         onClick={handleClick}
       >
         {focus ? (
-          <div></div>
+          <div className={styles.noFocus}>노른자 버스 찾는 중</div>
         ) : (
           <div>
             {isRecording ? (

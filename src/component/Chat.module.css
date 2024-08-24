@@ -13,13 +13,17 @@
   display: none;
 }
 
+.container.moveUp {
+  animation: up 0.5s ease-in-out forwards;
+}
+
 .firstBalloon {
   position: relative;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   background-color: #eee;
   border-radius: 10px;
-  padding: 20px;
+  padding: 15px;
   color: #333;
   font-size: 24px;
   opacity: 0;
@@ -30,7 +34,6 @@
 .secondBalloon {
   position: relative;
   display: flex;
-  flex-direction: column;
   background-color: #eee;
   border-radius: 10px;
   padding: 20px;
@@ -55,8 +58,8 @@
 .firstBalloon::after {
   content: "";
   position: absolute;
-  left: 0;
-  top: 50%;
+  left: 5px;
+  top: 75%;
   width: 0;
   height: 0;
   border: 20px solid transparent;
@@ -83,7 +86,6 @@
 }
 
 .btn {
-  align-self: self-end;
   display: inline-block;
   font-weight: 400;
   text-align: center;
@@ -95,16 +97,16 @@
   font-size: 26px;
   line-height: 1.5;
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: rgb(0, 0, 0);
+  border-color: rgb(0, 0, 0);
   cursor: pointer;
   text-decoration: none;
 }
 
 .btn:hover {
   color: #fff;
-  background-color: #0056b3;
-  border-color: #004085;
+  background-color: rgb(228, 171, 26);
+  border-color: rgb(228, 171, 26);
 }
 
 .btn.disappear {
@@ -123,15 +125,30 @@
 }
 
 .loader {
-  align-self: center;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
+  border: 15px solid #000000;
+  border-top: 15px solid rgb(228, 171, 26);
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 200px;
+  height: 200px;
   animation: spin 1s linear infinite;
   display: inline-block;
   vertical-align: middle;
+}
+
+.loaderText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: #000000;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.jCenter {
+  position: relative;
+  justify-content: center;
 }
 
 @keyframes spin {
@@ -140,5 +157,14 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes up {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, -100%);
   }
 }
