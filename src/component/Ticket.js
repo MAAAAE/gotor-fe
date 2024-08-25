@@ -39,7 +39,7 @@ export default function Ticket() {
           />
         </>
       )}
-      <div className={styles.title}>좋은 여행 되세요!</div>
+      {/* <div className={styles.title}>좋은 여행 되세요!</div> */}
     </div>
   );
 }

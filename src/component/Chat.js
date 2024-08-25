@@ -29,7 +29,7 @@ export default function Chat() {
   const selectBus = async (index, item) => {
     setChatBubble((prev) => [
       ...prev,
-      { user: true, content: `${index + 1}번째 버스를 선택합니다.` },
+      { user: true, content: `${index + 1}번째 버스를 선택했어요.` },
     ]);
 
     setTimeout(() => {
@@ -37,7 +37,7 @@ export default function Chat() {
         ...prev,
         {
           user: false,
-          content: "결제정보를 요청합니다. 카드를 삽입해 주십시오.",
+          content: "결제정보가 필요해요. 외부 결제로 연결할게요.",
         },
       ]);
     }, 400);
@@ -82,7 +82,7 @@ export default function Chat() {
       ...prev,
       {
         user: false,
-        content: "결제가 완료되었습니다.",
+        content: "결제가 완료되었어요.",
       },
     ]);
     setTimeout(() => {
@@ -143,7 +143,12 @@ export default function Chat() {
       ref={containerRef}
     >
       <div className={styles.firstBalloon}>
-        <div>{searchResult.length}개의 버스가 있습니다.</div>
+        <div>
+          <div>
+            {searchResult[0]?.from}에서 {searchResult[0]?.to}까지 가는
+          </div>
+          <div>{searchResult.length}개의 버스가 있어요.</div>
+        </div>
       </div>
       {searchResult.map((item, index) => (
         <div
