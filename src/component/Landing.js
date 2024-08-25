@@ -76,9 +76,13 @@ export default function Landing() {
   return (
     <div className={styles.baseContainer}>
       <div className={styles.container}>
-        <div className={styles.title}>노른자 버스 매표소</div>
         <div className={styles.title}>
-          마이크 사용을 <br /> 허가해주세요.
+          <span className={styles.hightlight}>고</span>속 
+          <span className={styles.hightlight}>터</span>미널
+          <br /> 버스 매표소
+        </div>
+        <div className={styles.title}>
+          마이크 사용을 <br /> 허가해주세요
         </div>
       </div>
       <div
@@ -89,7 +93,7 @@ export default function Landing() {
       >
         {focus ? (
           <div className={styles.noFocus}>
-            <div>노른자 버스 찾는 중</div>
+            <div>버스 찾는 중</div>
           </div>
         ) : (
           <div>

@@ -12,7 +12,8 @@ body {
   padding: 0;
   height: 100%;
   overflow: hidden;
-  font-family: "goorm-sans-bold";
+  font-family: "GmarketSansMedium";
+  font-weight: 700;
 }
 
 @font-face {
@@ -20,5 +21,13 @@ body {
   src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408@1.0/goorm-sans-bold.woff2")
     format("woff2");
   font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
   font-style: normal;
 }

@@ -7,7 +7,9 @@
   font-size: 2.5rem;
   text-align: center;
 }
-
+.hightlight {
+  color: rgb(241, 182, 27);
+}
 .container {
   display: flex;
   flex-direction: column;
@@ -24,8 +26,8 @@
   top: 90%; /* 초기 위치 */
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
   border-radius: 50%;
   background-color: rgb(241, 182, 27);
   z-index: 20;
@@ -63,6 +65,8 @@
   white-space: nowrap;
   font-size: 2.5rem;
   z-index: 30;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
 }
 
 .blankArea {
@@ -83,14 +87,14 @@
 @keyframes moveToCenter {
   0% {
     top: 90%;
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     background-color: rgb(241, 182, 27);
   }
   100% {
     top: 50%;
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     background-color: rgb(241, 182, 27);
     transform: translate(-50%, -50%);
   }
@@ -132,5 +136,14 @@
     height: calc(300px * 10);
     background-color: rgb(241, 182, 27);
     transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
